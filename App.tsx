@@ -14,7 +14,7 @@ const App = () => {
     return () => clearTimeout(timer);
   }, [status]);
 
-  const triggerBuild = async () => {
+  const triggerBuild = async (workflow: string) => {
     const appSlug = "cde17a07a29f0b75"; // Landal
     await fetch(`https://api.bitrise.io/v0.1/apps/${appSlug}/builds`, {
       method: "POST",
@@ -30,7 +30,7 @@ const App = () => {
         },
         build_params: {
           branch: "main",
-          workflow_id: "LANDAL-ANDROID-ACC",
+          workflow_id: workflow,
         },
       }),
     });
@@ -68,7 +68,7 @@ const App = () => {
             marginTop: 20,
           }}
           onPress={async () => {
-            await triggerBuild();
+            await triggerBuild("LANDAL-ANDROID-ACC");
             setStatus("build triggered");
           }}
           is3D
